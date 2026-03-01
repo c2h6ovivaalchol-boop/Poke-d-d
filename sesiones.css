@@ -1,56 +1,138 @@
-/* ============================================================
-   ESTILOS EXCLUSIVOS PARA LA PÁGINA DE SESIONES
-   ============================================================ */
+/* 1. Configuración de Fuente y Fondo (El Diario) */
+html {
+  background-color: #2c3e50; /* El color de la "funda" del diario */
+  background-image: radial-gradient(#d4af37 1px, transparent 1px);
+  background-size: 40px 40px;
+  min-height: 100vh;
+}
+
 body {
-    margin: 0;
-    padding: 0;
-    background-color: #1a1a1a; /* Fondo oscuro tipo taberna */
-    color: #f4e1c1;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 60px;
+  background: #f4e4bc; /* Color pergamino */
+  color: #2c3e50;
+  font-family: 'Crimson Text', serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  box-shadow: 
+    0 0 50px rgba(0,0,0,0.5),
+    inset 0 0 100px rgba(212, 175, 55, 0.2);
+  border-radius: 5px;
+  border: 12px double #8b4513; /* Borde de cuero/madera */
+  position: relative;
+}
+
+/* 2. Encabezados: El toque Pokedex-Medieval */
+header h1 {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: #e74c3c; /* Rojo Pokémon */
+  border-bottom: 4px double #d4af37;
+  padding-bottom: 20px;
+  margin-top: 0;
+}
+
+h2 {
+  font-family: sans-serif;
+  background: #2c3e50;
+  color: #f4e4bc;
+  padding: 10px 20px;
+  clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
+  margin-left: -70px; /* Sobresale del diario como una pestaña */
+}
+
+h3 {
+  color: #8b4513;
+  border-bottom: 2px solid #e74c3c;
+  display: inline-block;
+}
+
+/* 3. El Cuerpo del Diario (Párrafos y Citas) */
+p {
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+
+/* Para notas especiales de la sesión o susurros del DM */
+blockquote {
+  margin: 20px 0;
+  padding: 15px 25px;
+  background: rgba(231, 76, 60, 0.1);
+  border-left: 5px solid #e74c3c;
+  font-style: italic;
+  border-radius: 0 10px 10px 0;
+}
+
+/* 4. Listas: Objetos, Pokémon avistados o Iniciativa */
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(139, 69, 19, 0.3);
+}
+
+li::before {
+  content: "◈"; /* Icono de rombo tipo RPG */
+  color: #d4af37;
+  margin-right: 15px;
+  font-weight: bold;
+}
+
+/* 5. Imágenes (Sprites de Pokémon o Mapas) */
+img {
+  display: block;
+  margin: 20px auto;
+  max-width: 100%;
+  filter: sepia(0.3) contrast(1.1); /* Efecto dibujo antiguo */
+  border: 3px solid #d4af37;
+  padding: 5px;
+  background: white;
+  transition: transform 0.3s ease;
+}
+
+img:hover {
+  filter: none;
+  transform: scale(1.05) rotate(1deg);
+}
+
+/* 6. Enlaces y Stats */
+a {
+  color: #e74c3c;
+  font-weight: bold;
+  text-decoration-style: wavy;
+}
+
+a:hover {
+  color: #2c3e50;
+  background: #d4af37;
+}
+
+/* Pie de página */
+footer {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  border-top: 1px solid #d4af37;
+  padding-top: 20px;
+}
+#btn-navegacion {
+    background: #b71c1c; /* El rojo que ya usamos */
+    color: white;
     font-family: 'Cinzel', serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    text-align: center;
+    padding: 10px 25px;
+    border: 2px solid #d4af37;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
-h1 {
-    font-size: 3rem;
-    margin-bottom: 40px;
-    text-shadow: 3px 3px 5px #000;
-    color: #cfb53b; /* Dorado */
-}
-
-.btn-sesion {
-    display: inline-block;
-    background-color: #8b0000; /* Rojo lacre */
-    color: #f4e1c1 !important;
-    padding: 20px 40px;
-    margin: 15px;
-    text-decoration: none;
-    font-family: 'Uncial Antiqua', serif;
-    font-size: 1.5rem;
-    border: 3px solid #5d0000;
-    border-radius: 10px;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.7);
-    transition: all 0.3s ease;
-}
-
-.btn-sesion:hover {
-    background-color: #a50000;
+#btn-navegacion:hover {
+    background: #5d4037;
     transform: scale(1.1);
-    box-shadow: 0px 0px 20px #cfb53b; /* Brillo dorado al pasar el ratón */
-}
-
-.volver-inicio {
-    margin-top: 50px;
-    color: #888;
-    text-decoration: none;
-    font-family: sans-serif;
-    font-size: 0.9rem;
-}
-
-.volver-inicio:hover {
-    color: #f4e1c1;
 }
