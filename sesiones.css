@@ -1,0 +1,56 @@
+/* ============================================================
+   ESTILOS EXCLUSIVOS PARA LA PÁGINA DE SESIONES
+   ============================================================ */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a; /* Fondo oscuro tipo taberna */
+    color: #f4e1c1;
+    font-family: 'Cinzel', serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 40px;
+    text-shadow: 3px 3px 5px #000;
+    color: #cfb53b; /* Dorado */
+}
+
+.btn-sesion {
+    display: inline-block;
+    background-color: #8b0000; /* Rojo lacre */
+    color: #f4e1c1 !important;
+    padding: 20px 40px;
+    margin: 15px;
+    text-decoration: none;
+    font-family: 'Uncial Antiqua', serif;
+    font-size: 1.5rem;
+    border: 3px solid #5d0000;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.7);
+    transition: all 0.3s ease;
+}
+
+.btn-sesion:hover {
+    background-color: #a50000;
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px #cfb53b; /* Brillo dorado al pasar el ratón */
+}
+
+.volver-inicio {
+    margin-top: 50px;
+    color: #888;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 0.9rem;
+}
+
+.volver-inicio:hover {
+    color: #f4e1c1;
+}
