@@ -231,8 +231,41 @@
                     <button onclick="filtrarHechizos(3,'all')" class="active">All</button>
                     <button onclick="filtrarHechizos(3,'1')">1</button><button onclick="filtrarHechizos(3,'2')">2</button><button onclick="filtrarHechizos(3,'3')">3</button><button onclick="filtrarHechizos(3,'4')">4</button><button onclick="filtrarHechizos(3,'5')">5</button><button onclick="filtrarHechizos(3,'6')">6</button><button onclick="filtrarHechizos(3,'7')">7</button><button onclick="filtrarHechizos(3,'8')">8</button><button onclick="filtrarHechizos(3,'9')">9</button>
                 </div>
-                <div id="p3-lista-spells" class="scroll-hechizos-ficha">
-                    <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Hechizo P3</strong> <span>Nivel 1</span></div><div class="mov-desc">Descripción aquí...</div></div>
+               <div id="p3-lista-spells" class="scroll-hechizos-ficha">
+                    <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)">
+                        <div style="display:flex; justify-content:space-between">
+                            <strong>Protección contra Armas</strong> <span>Truco</span>
+                        </div>
+                        <div class="mov-desc">Este es un Truco. Extiendes tu mano y trazas un símbolo de protección en el aire. Hasta el final de tu próximo turno, tienes resistencia contra daño contundente, perforante y cortante infligido por ataques con armas.</div>
+                    </div>
+
+                    <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)">
+                        <div style="display:flex; justify-content:space-between">
+                            <strong>Impacto Verdadero</strong> <span>Truco</span>
+                        </div>
+                        <div class="mov-desc">Este es un Truco. Señalas a un objetivo dentro del alcance (30 pies). Tu magia te otorga una breve visión de las defensas del objetivo. En tu próximo turno, obtienes ventaja en tu primera tirada de ataque contra esa criatura.</div>
+                    </div>
+
+                    <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)">
+                        <div style="display:flex; justify-content:space-between">
+                            <strong>Burla Cruel</strong> <span>Truco</span>
+                        </div>
+                        <div class="mov-desc">Este es un Truco. Lanzas una serie de insultos mezclados con encantamientos mágicos. El objetivo debe superar una tirada de salvación de Sabiduría o recibir 1d4 de daño psíquico y tener desventaja en la próxima tirada de ataque que realice antes del final de su próximo turno.</div>
+                    </div>
+
+                    <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)">
+                        <div style="display:flex; justify-content:space-between">
+                            <strong>Curar Heridas</strong> <span>Nivel 1</span>
+                        </div>
+                        <div class="mov-desc">Una criatura que tocas recupera un número de puntos de golpe igual a 1d8 + tu modificador por característica para lanzar conjuros. Este conjuro no tiene efecto sobre autómata o muertos vivientes.</div>
+                    </div>
+
+                    <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)">
+                        <div style="display:flex; justify-content:space-between">
+                            <strong>Temblor de Tierra</strong> <span>Nivel 1</span>
+                        </div>
+                        <div class="mov-desc">Causas un temblor en el suelo en un radio de 10 pies. Cada criatura distinta a ti en esa área debe hacer una tirada de salvación de Destreza. Si falla, la criatura recibe 1d6 de daño contundente y queda derribada (prosternada).</div>
+                    </div>
                 </div>
             </div>
             <div id="p3-c3" class="tab-content"><textarea id="p3-inv" class="textarea-hisui" placeholder="Objetos..."></textarea></div>
