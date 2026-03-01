@@ -1,138 +1,113 @@
-/* 1. Configuración de Fuente y Fondo (El Diario) */
+/* ============================================================
+   CONFIGURACIÓN GENERAL
+   ============================================================ */
 html {
-  background-color: #2c3e50; /* El color de la "funda" del diario */
-  background-image: radial-gradient(#d4af37 1px, transparent 1px);
-  background-size: 40px 40px;
-  min-height: 100vh;
+    background-color: #2c3e50;
+    background-image: radial-gradient(#d4af37 1px, transparent 1px);
+    background-size: 40px 40px;
+    min-height: 100vh;
 }
 
 body {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 60px;
-  background: #f4e4bc; /* Color pergamino */
-  color: #2c3e50;
-  font-family: 'Crimson Text', serif;
-  font-size: 1.2rem;
-  line-height: 1.6;
-  box-shadow: 
-    0 0 50px rgba(0,0,0,0.5),
-    inset 0 0 100px rgba(212, 175, 55, 0.2);
-  border-radius: 5px;
-  border: 12px double #8b4513; /* Borde de cuero/madera */
-  position: relative;
+    margin: 0;
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
 }
 
-/* 2. Encabezados: El toque Pokedex-Medieval */
-header h1 {
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  color: #e74c3c; /* Rojo Pokémon */
-  border-bottom: 4px double #d4af37;
-  padding-bottom: 20px;
-  margin-top: 0;
+/* ============================================================
+   FICHA HORIZONTAL
+   ============================================================ */
+.ficha-horizontal-arceus {
+    display: flex;
+    gap: 30px;
+    background-color: #f4e4bc; /* Pergamino */
+    background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+    padding: 40px;
+    margin: 20px auto;
+    max-width: 1000px;
+    border: 2px solid #3c2a1e;
+    clip-path: polygon(0 5%, 3% 0, 97% 0, 100% 5%, 100% 95%, 97% 100%, 3% 100%, 0 95%);
+    box-shadow: 15px 15px 0px rgba(0,0,0,0.5);
 }
 
-h2 {
-  font-family: sans-serif;
-  background: #2c3e50;
-  color: #f4e4bc;
-  padding: 10px 20px;
-  clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
-  margin-left: -70px; /* Sobresale del diario como una pestaña */
+/* ... (Aquí irían los estilos de stats y combate que ya tienes) ... */
+
+/* ============================================================
+   DISEÑO DEL INVENTARIO
+   ============================================================ */
+.zurron-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+    background: rgba(42, 27, 16, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    max-height: 250px;
+    overflow-y: auto;
 }
 
-h3 {
-  color: #8b4513;
-  border-bottom: 2px solid #e74c3c;
-  display: inline-block;
-}
-
-/* 3. El Cuerpo del Diario (Párrafos y Citas) */
-p {
-  margin-bottom: 1.5rem;
-  text-align: justify;
-}
-
-/* Para notas especiales de la sesión o susurros del DM */
-blockquote {
-  margin: 20px 0;
-  padding: 15px 25px;
-  background: rgba(231, 76, 60, 0.1);
-  border-left: 5px solid #e74c3c;
-  font-style: italic;
-  border-radius: 0 10px 10px 0;
-}
-
-/* 4. Listas: Objetos, Pokémon avistados o Iniciativa */
-ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-li {
-  padding: 8px 0;
-  border-bottom: 1px dashed rgba(139, 69, 19, 0.3);
-}
-
-li::before {
-  content: "◈"; /* Icono de rombo tipo RPG */
-  color: #d4af37;
-  margin-right: 15px;
-  font-weight: bold;
-}
-
-/* 5. Imágenes (Sprites de Pokémon o Mapas) */
-img {
-  display: block;
-  margin: 20px auto;
-  max-width: 100%;
-  filter: sepia(0.3) contrast(1.1); /* Efecto dibujo antiguo */
-  border: 3px solid #d4af37;
-  padding: 5px;
-  background: white;
-  transition: transform 0.3s ease;
-}
-
-img:hover {
-  filter: none;
-  transform: scale(1.05) rotate(1deg);
-}
-
-/* 6. Enlaces y Stats */
-a {
-  color: #e74c3c;
-  font-weight: bold;
-  text-decoration-style: wavy;
-}
-
-a:hover {
-  color: #2c3e50;
-  background: #d4af37;
-}
-
-/* Pie de página */
-footer {
-  margin-top: 50px;
-  text-align: center;
-  font-size: 0.9rem;
-  opacity: 0.7;
-  border-top: 1px solid #d4af37;
-  padding-top: 20px;
-}
-#btn-navegacion {
-    background: #b71c1c; /* El rojo que ya usamos */
-    color: white;
-    font-family: 'Cinzel', serif;
-    padding: 10px 25px;
-    border: 2px solid #d4af37;
+.item-slot {
+    background: #e9e2d1;
+    border: 2px solid #3c2a1e;
+    aspect-ratio: 1/1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: 0.2s;
     cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
 }
 
-#btn-navegacion:hover {
-    background: #5d4037;
-    transform: scale(1.1);
+.item-slot:hover {
+    background: #dbbc7e;
+    transform: scale(1.05);
+}
+
+.item-slot.vacio {
+    border: 2px dashed rgba(60, 42, 30, 0.3);
+    background: transparent;
+}
+
+.item-icon { font-size: 1.5rem; }
+
+.item-count {
+    position: absolute;
+    bottom: 2px;
+    right: 4px;
+    background: #a62c2b;
+    color: white;
+    font-size: 0.6rem;
+    padding: 1px 4px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.item-name {
+    font-size: 0.5rem;
+    text-align: center;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.oro-seccion {
+    margin-top: 15px;
+    text-align: right;
+    font-weight: bold;
+    color: #3c2a1e;
+}
+
+.input-oro {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #cfb53b;
+    width: 80px;
+    text-align: right;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* LÓGICA DE PESTAÑAS ADICIONAL */
+#tab-inventario:checked ~ .content-inventario {
+    display: block;
 }
