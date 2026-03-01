@@ -57,13 +57,28 @@
         .tab-content { display: none; padding-top: 15px; }
         .textarea-hisui { width: 100%; height: 150px; background: rgba(255,255,255,0.3); border: 1px solid var(--madera-oscura); padding: 10px; resize: none; font-family: 'Cinzel', serif; box-sizing: border-box; }
 
-        /* Hechizos */
+        /* Hechizos y Scroll */
         .selector-niveles { display: flex; gap: 5px; margin-bottom: 10px; flex-wrap: wrap; }
         .selector-niveles button { background: var(--madera-oscura); color: var(--dorado-arceus); border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 0.7rem; }
         .selector-niveles button.active { background: var(--rojo-arceus); color: white; }
         .movimiento-item { background: rgba(255,255,255,0.5); padding: 10px; margin-bottom: 5px; border-left: 4px solid var(--rojo-arceus); cursor: pointer; }
         .mov-desc { display: none; font-size: 0.8rem; padding-top: 5px; font-style: italic; border-top: 1px solid rgba(0,0,0,0.1); margin-top: 5px; }
         .movimiento-item.open .mov-desc { display: block; }
+
+        /* NUEVA CLASE SCROLL */
+        .scroll-hechizos-ficha {
+            max-height: 250px;
+            overflow-y: auto;
+            padding-right: 10px;
+            border: 1px inset rgba(42, 27, 16, 0.1);
+            border-radius: 5px;
+        }
+        .scroll-hechizos-ficha::-webkit-scrollbar { width: 6px; }
+        .scroll-hechizos-ficha::-webkit-scrollbar-thumb { background: var(--rojo-arceus); border-radius: 10px; }
+
+        /* Footer */
+        .footer-personajes { text-align: center; padding: 20px; margin-top: 20px; }
+        .footer-personajes a { color: var(--dorado-arceus); text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -117,7 +132,7 @@
                     <button onclick="filtrarHechizos(1,'all')" class="active">All</button>
                     <button onclick="filtrarHechizos(1,'1')">1</button><button onclick="filtrarHechizos(1,'2')">2</button><button onclick="filtrarHechizos(1,'3')">3</button><button onclick="filtrarHechizos(1,'4')">4</button><button onclick="filtrarHechizos(1,'5')">5</button><button onclick="filtrarHechizos(1,'6')">6</button><button onclick="filtrarHechizos(1,'7')">7</button><button onclick="filtrarHechizos(1,'8')">8</button><button onclick="filtrarHechizos(1,'9')">9</button>
                 </div>
-                <div id="p1-lista-spells">
+                <div id="p1-lista-spells" class="scroll-hechizos-ficha">
                     <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Descarga sobrenatural</strong> <span>Truco</span></div><div class="mov-desc">Alcance de 120, V y S, 1d10 de daño. (Cada nivel extra +1d10 hasta 5)</div></div>
                     <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Frostbite</strong> <span>Truco</span></div><div class="mov-desc">Alcance de 60, V y S, 1d16 de daño helado. (Cada nivel extra +1d10 hasta 5)</div></div>
                     <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Infernal</strong> <span>Nivel 1</span></div><div class="mov-desc">Alcance de 60, V y S, 2d10 de daño de fuego. (Cada nivel extra +1d10 hasta 5)</div></div>
@@ -165,19 +180,13 @@
                     <button onclick="filtrarHechizos(2,'all')" class="active">All</button>
                     <button onclick="filtrarHechizos(2,'1')">1</button><button onclick="filtrarHechizos(2,'2')">2</button><button onclick="filtrarHechizos(2,'3')">3</button><button onclick="filtrarHechizos(2,'4')">4</button><button onclick="filtrarHechizos(2,'5')">5</button><button onclick="filtrarHechizos(2,'6')">6</button><button onclick="filtrarHechizos(2,'7')">7</button><button onclick="filtrarHechizos(2,'8')">8</button><button onclick="filtrarHechizos(2,'9')">9</button>
                 </div>
-                <div id="p2-lista-spells">
+                <div id="p2-lista-spells" class="scroll-hechizos-ficha">
                     <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Llama sagrada</strong> <span>Truco</span></div><div class="mov-desc">Alcance 60, V y S, 1d8 de daño radiante.</div></div>
                     <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Perdon a los moribundos</strong> <span>Truco</span></div><div class="mov-desc">Alcance toque, V y S, revives a la criatura que tocas con 0 puntos de vida.</div></div>
-                    <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Taumaturgia</strong> <span>Truco</span></div><div class="mov-desc">Alcance 30, V, 
-                        Voz estruendosa: Tu voz suena hasta tres veces más fuerte durante 1 minuto.
-Manipulación de llamas: Las llamas parpadean, brillan, se atenúan o cambian de color.
-Temblores: Causas temblores inofensivos en el suelo.
-Sonidos fantasma: Creas un sonido instantáneo (trueno, graznido, susurros).
-Manipulación de objetos: Abres o cierras de golpe puertas o ventanas sin llave.
-Cambio de ojos: Alteras la apariencia de tus ojos durante 1 minuto. .</div></div>
+                    <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Taumaturgia</strong> <span>Truco</span></div><div class="mov-desc">Alcance 30, V, Voz estruendosa: Tu voz suena hasta tres veces más fuerte durante 1 minuto. Manipulación de llamas: Las llamas parpadean, brillan, se atenúan o cambian de color. Temblores: Causas temblores inofensivos en el suelo. Sonidos fantasma: Creas un sonido instantáneo (trueno, graznido, susurros). Manipulación de objetos: Abres o cierras de golpe puertas o ventanas sin llave. Cambio de ojos: Alteras la apariencia de tus ojos durante 1 minuto.</div></div>
                     <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Curar heridas</strong> <span>Nivel 1</span></div><div class="mov-desc">Alcance toque, V y S, cura 1d8 + 4.</div></div>
-                    <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Saeta guia</strong> <span>Nivel 1</span></div><div class="mov-desc">Alcance 120, V y S, 4d6 de daño radiante. (+1 d6 por cada nivel de hechizo por encima de este)</div></div
-                    <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Inflingir heridas</strong> <span>Nivel 1</span></div><div class="mov-desc">Alcance toque, V y S, daña 3d10 de daño necrotico.</div></div>>
+                    <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Saeta guia</strong> <span>Nivel 1</span></div><div class="mov-desc">Alcance 120, V y S, 4d6 de daño radiante. (+1 d6 por cada nivel de hechizo por encima de este)</div></div>
+                    <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Inflingir heridas</strong> <span>Nivel 1</span></div><div class="mov-desc">Alcance toque, V y S, daña 3d10 de daño necrotico.</div></div>
                 </div>
             </div>
             <div id="p2-c3" class="tab-content"><textarea id="p2-inv" class="textarea-hisui" placeholder="Objetos..."></textarea></div>
@@ -222,7 +231,7 @@ Cambio de ojos: Alteras la apariencia de tus ojos durante 1 minuto. .</div></div
                     <button onclick="filtrarHechizos(3,'all')" class="active">All</button>
                     <button onclick="filtrarHechizos(3,'1')">1</button><button onclick="filtrarHechizos(3,'2')">2</button><button onclick="filtrarHechizos(3,'3')">3</button><button onclick="filtrarHechizos(3,'4')">4</button><button onclick="filtrarHechizos(3,'5')">5</button><button onclick="filtrarHechizos(3,'6')">6</button><button onclick="filtrarHechizos(3,'7')">7</button><button onclick="filtrarHechizos(3,'8')">8</button><button onclick="filtrarHechizos(3,'9')">9</button>
                 </div>
-                <div id="p3-lista-spells">
+                <div id="p3-lista-spells" class="scroll-hechizos-ficha">
                     <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Hechizo P3</strong> <span>Nivel 1</span></div><div class="mov-desc">Descripción aquí...</div></div>
                 </div>
             </div>
@@ -344,9 +353,10 @@ Cambio de ojos: Alteras la apariencia de tus ojos durante 1 minuto. .</div></div
     document.addEventListener('input', saveData);
     window.onload = loadData;
 </script>
-    </div> <footer class="footer-personajes">
-        <a href="index.html">⬅ Volver al inicio</a>
-    </footer>
-</body>
+
+<footer class="footer-personajes">
+    <a href="index.html">⬅ Volver al inicio</a>
+</footer>
+
 </body>
 </html>
