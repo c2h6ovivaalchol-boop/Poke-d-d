@@ -106,6 +106,43 @@ body {
     font-weight: bold;
     font-size: 1rem;
 }
+/* Estilo para la página de Sesiones / Aventuras */
+.btn-sesion {
+    display: inline-block;
+    background-color: #8b0000; /* Rojo oscuro tipo lacre */
+    color: #f4e1c1; /* Color crema para el texto */
+    padding: 15px 30px;
+    margin: 10px;
+    text-decoration: none;
+    font-family: 'Uncial Antiqua', serif; /* La fuente que ya tienes en tu HTML */
+    font-size: 1.2rem;
+    border: 2px solid #5d0000;
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-sesion:hover {
+    background-color: #a50000;
+    transform: scale(1.05);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.7);
+    color: #ffffff;
+}
+
+/* Contenedor opcional para centrar todo */
+body {
+    background-color: #1a1a1a; /* Fondo oscuro para que resalte el contenido */
+    color: #f4e1c1;
+    text-align: center;
+    padding-top: 50px;
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px #000;
+}
 
 /* LÓGICA DE PESTAÑAS ADICIONAL */
 #tab-inventario:checked ~ .content-inventario {
