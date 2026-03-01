@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"> 
+    <title>Personajes</title> 
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Uncial+Antiqua&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="style-char.css"> 
+    <link rel="icon" href="img/logo.jpg" type="image/png">
+    <style>
+        :root {
+            --rojo-arceus: #a62c2b;
+            --dorado-arceus: #dbbc7e;
+            --madera-oscura: #2a1b10;
+            --pergamino: #f4e4bc;
+        }
+        body { padding: 20px; font-family: 'Cinzel', serif; background-color: #2c3e50; color: var(--madera-oscura); }
+
+        /* Selector de Jugadores */
+        .selector-jugadores { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .btn-player { padding: 10px 25px; background: var(--madera-oscura); color: var(--dorado-arceus); border: 2px solid var(--dorado-arceus); cursor: pointer; font-weight: bold; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); transition: 0.3s; }
+        .btn-player.active { background: var(--rojo-arceus); color: white; transform: scale(1.1); }
+
+        /* Botones de Archivo */
+        .btn-archivo { padding: 8px 15px; border: none; color: white; cursor: pointer; border-radius: 5px; font-weight: bold; font-size: 0.8rem; }
+
+        .ficha-wrapper { display: none; }
+        .ficha-wrapper.active { display: block; }
+
+        .ficha-horizontal-arceus { display: flex; gap: 25px; background-color: var(--pergamino); padding: 40px; margin: 0 auto; max-width: 1000px; border: 2px solid var(--madera-oscura); box-shadow: 10px 10px 0px rgba(0,0,0,0.4); border-radius: 10px; position: relative; }
+
+        /* Columna Stats */
+        .columna-stats { width: 140px; border-right: 2px dashed rgba(42, 27, 16, 0.2); padding-right: 15px; }
+        .retrato-circulo { width: 100px; height: 100px; margin: 0 auto 20px; border-radius: 50%; border: 4px solid var(--madera-oscura); background: #121417; overflow: hidden; }
+        .retrato-circulo img { width: 100%; height: 100%; object-fit: cover; }
+        .stat-block-interactivo { background: var(--madera-oscura); color: var(--dorado-arceus); padding: 8px 5px; margin-bottom: 8px; text-align: center; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); }
+        .stat-block-interactivo input { width: 45px; background: transparent; border: none; color: white; font-size: 1.1rem; font-weight: bold; text-align: center; outline: none; }
+        .stat-block-interactivo strong { background: var(--rojo-arceus); color: white; padding: 1px 6px; border-radius: 4px; font-size: 0.7rem; display: inline-block; }
+
+        /* Columna Principal */
+        .columna-principal { flex-grow: 1; }
+        .cabecera-info { display: flex; gap: 15px; align-items: flex-end; border-bottom: 3px solid var(--rojo-arceus); padding-bottom: 5px; margin-bottom: 15px; }
+        .input-nombre { background: transparent; border: none; font-family: 'Uncial Antiqua', cursive; font-size: 1.8rem; color: var(--madera-oscura); outline: none; flex-grow: 1; }
+        .input-clase { background: transparent; border: none; font-size: 1rem; font-weight: bold; color: var(--rojo-arceus); border-bottom: 1px solid var(--dorado-arceus); outline: none; width: 200px; }
+
+        .xp-bar-bg { width: 100%; height: 12px; background: rgba(0,0,0,0.1); border: 1px solid var(--madera-oscura); border-radius: 10px; overflow: hidden; margin-top: 5px; }
+        .xp-bar-fill { height: 100%; background: linear-gradient(90deg, #4caf50, #8bc34a); width: 0%; transition: 0.5s; }
+
+        .fila-combate { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.05); padding: 15px; border-radius: 8px; margin: 15px 0; }
+        .controles-box { display: flex; align-items: center; gap: 8px; background: var(--madera-oscura); color: white; padding: 5px 12px; border-radius: 20px; }
+        .controles-box button { background: var(--rojo-arceus); border: none; color: white; width: 22px; height: 22px; border-radius: 50%; cursor: pointer; }
+
+        /* Tabs */
+        .tabs-header { display: flex; gap: 5px; margin-top: 15px; }
+        .tabs-header label { flex: 1; padding: 10px; background: var(--madera-oscura); color: var(--dorado-arceus); text-align: center; cursor: pointer; font-size: 0.8rem; font-weight: bold; }
+        .tabs-header input[type="radio"] { display: none; }
+        .tabs-header input[type="radio"]:checked + label { background: var(--rojo-arceus); color: white; }
+        .tab-content { display: none; padding-top: 15px; }
+        .textarea-hisui { width: 100%; height: 150px; background: rgba(255,255,255,0.3); border: 1px solid var(--madera-oscura); padding: 10px; resize: none; font-family: 'Cinzel', serif; box-sizing: border-box; }
+
+        /* Hechizos */
+        .selector-niveles { display: flex; gap: 5px; margin-bottom: 10px; flex-wrap: wrap; }
+        .selector-niveles button { background: var(--madera-oscura); color: var(--dorado-arceus); border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 0.7rem; }
+        .selector-niveles button.active { background: var(--rojo-arceus); color: white; }
+        .movimiento-item { background: rgba(255,255,255,0.5); padding: 10px; margin-bottom: 5px; border-left: 4px solid var(--rojo-arceus); cursor: pointer; }
+        .mov-desc { display: none; font-size: 0.8rem; padding-top: 5px; font-style: italic; border-top: 1px solid rgba(0,0,0,0.1); margin-top: 5px; }
+        .movimiento-item.open .mov-desc { display: block; }
+    </style>
+</head>
+<body>
+
+<div class="selector-jugadores">
+    <button class="btn-player active" id="btn1" onclick="cambiarJugador(1)">Sheila</button>
+    <button class="btn-player" id="btn2" onclick="cambiarJugador(2)">Erica</button>
+    <button class="btn-player" id="btn3" onclick="cambiarJugador(3)">Vega</button>
+</div>
+
+<div style="text-align:center; margin-bottom: 20px; display: flex; justify-content: center; gap: 10px;">
+    <button onclick="exportarPartida()" class="btn-archivo" style="background: #27ae60;">💾 Descargar Archivo (.json)</button>
+    <button onclick="document.getElementById('archivoInput').click()" class="btn-archivo" style="background: #2980b9;">📂 Subir Archivo</button>
+    <input type="file" id="archivoInput" style="display:none" onchange="importarPartida(this)">
+</div>
+
+<div id="wrapper-p1" class="ficha-wrapper active">
+    <div class="ficha-horizontal-arceus">
+        <div class="columna-stats">
+            <div class="retrato-circulo"><img src="img/Gaia.jpg" id="p1-img"></div>
+            <div class="stat-block-interactivo"><span>STR</span><input type="number" id="p1-str" value="10" oninput="calcularTodo(1)"><br><strong id="p1-str-mod">+0</strong></div>
+            <div class="stat-block-interactivo"><span>DEX</span><input type="number" id="p1-dex" value="10" oninput="calcularTodo(1)"><br><strong id="p1-dex-mod">+0</strong></div>
+            <div class="stat-block-interactivo"><span>CON</span><input type="number" id="p1-con" value="10" oninput="calcularTodo(1)"><br><strong id="p1-con-mod">+0</strong></div>
+            <div class="stat-block-interactivo"><span>INT</span><input type="number" id="p1-int" value="10" oninput="calcularTodo(1)"><br><strong id="p1-int-mod">+0</strong></div>
+            <div class="stat-block-interactivo"><span>WIS</span><input type="number" id="p1-wis" value="10" oninput="calcularTodo(1)"><br><strong id="p1-wis-mod">+0</strong></div>
+            <div class="stat-block-interactivo"><span>CHA</span><input type="number" id="p1-cha" value="10" oninput="calcularTodo(1)"><br><strong id="p1-cha-mod">+0</strong></div>
+        </div>
+        <div class="columna-principal">
+            <div class="cabecera-info">
+                <input type="text" id="p1-nombre" class="input-nombre" value="Héroe 1">
+                <input type="text" id="p1-clase" class="input-clase" placeholder="Clase / Oficio">
+                <div style="text-align:right"><label style="font-size:0.6rem">LVL</label><br><input type="number" id="p1-nivel" value="1" oninput="calcularTodo(1)" style="width:30px; background:transparent; border:none; font-weight:bold"></div>
+            </div>
+            <div class="xp-container" style="font-size:0.7rem; font-weight:bold">
+                XP: <input type="number" id="p1-xp" value="0" oninput="actualizarXP(1)" style="width:50px; background:transparent; border:none; font-weight:bold"> / 1000
+                <div class="xp-bar-bg"><div id="p1-xp-fill" class="xp-bar-fill"></div></div>
+            </div>
+            <div class="fila-combate">
+                <div><label style="font-size:0.6rem; display:block; text-align:center">AC</label><div class="controles-box"><button onclick="cambiarVal('p1-ac',-1,1)">-</button><input type="number" id="p1-ac" value="10" style="width:25px; background:transparent; border:none; color:white; text-align:center"><button onclick="cambiarVal('p1-ac',1,1)">+</button></div></div>
+                <div style="text-align:center"><label style="font-size:0.6rem">INIT</label><br><strong id="p1-init" style="font-size:1.5rem">+0</strong></div>
+                <div><label style="font-size:0.6rem; display:block; text-align:center">HP</label><div class="controles-box"><button onclick="cambiarHP(1,-1)">-</button><span id="p1-hp-cur">10</span> / <span id="p1-hp-max">10</span><button onclick="cambiarHP(1,1)">+</button></div></div>
+            </div>
+            <div class="tabs-header">
+                <input type="radio" name="p1-tabs" id="p1-t1" checked><label for="p1-t1" onclick="showTab(1,1)">Ataques</label>
+                <input type="radio" name="p1-tabs" id="p1-t2"><label for="p1-t2" onclick="showTab(1,2)">Hechizos</label>
+                <input type="radio" name="p1-tabs" id="p1-t3"><label for="p1-t3" onclick="showTab(1,3)">Inventario</label>
+            </div>
+            <div id="p1-c1" class="tab-content" style="display:block"><textarea id="p1-ataq" class="textarea-hisui" placeholder="Escribe ataques..."></textarea></div>
+            <div id="p1-c2" class="tab-content">
+                <div class="selector-niveles" id="p1-spell-sel">
+                    <button onclick="filtrarHechizos(1,'all')" class="active">All</button>
+                    <button onclick="filtrarHechizos(1,'1')">1</button><button onclick="filtrarHechizos(1,'2')">2</button><button onclick="filtrarHechizos(1,'3')">3</button><button onclick="filtrarHechizos(1,'4')">4</button><button onclick="filtrarHechizos(1,'5')">5</button><button onclick="filtrarHechizos(1,'6')">6</button><button onclick="filtrarHechizos(1,'7')">7</button><button onclick="filtrarHechizos(1,'8')">8</button><button onclick="filtrarHechizos(1,'9')">9</button>
+                </div>
+                <div id="p1-lista-spells">
+                    <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Hechizo P1</strong> <span>Nivel 1</span></div><div class="mov-desc">Descripción aquí...</div></div>
+                </div>
+            </div>
+            <div id="p1-c3" class="tab-content"><textarea id="p1-inv" class="textarea-hisui" placeholder="Objetos..."></textarea></div>
+        </div>
+    </div>
+</div>
+
+<div id="wrapper-p2" class="ficha-wrapper">
+    <div class="ficha-horizontal-arceus">
+        <div class="columna-stats">
+            <div class="retrato-circulo"><img src="img/Francis.jpg" id="p2-img"></div>
+            <div class="stat-block-interactivo"><span>STR</span><input type="number" id="p2-str" value="10" oninput="calcularTodo(2)"><br><strong id="p2-str-mod">+0</strong></div>
+            <div class="stat-block-interactivo"><span>DEX</span><input type="number" id="p2-dex" value="10" oninput="calcularTodo(2)"><br><strong id="p2-dex-mod">+0</strong></div>
+            <div class="stat-block-interactivo"><span>CON</span><input type="number" id="p2-con" value="10" oninput="calcularTodo(2)"><br><strong id="p2-con-mod">+0</strong></div>
+            <div class="stat-block-interactivo"><span>INT</span><input type="number" id="p2-int" value="10" oninput="calcularTodo(2)"><br><strong id="p2-int-mod">+0</strong></div>
+            <div class="stat-block-interactivo"><span>WIS</span><input type="number" id="p2-wis" value="10" oninput="calcularTodo(2)"><br><strong id="p2-wis-mod">+0</strong></div>
+            <div class="stat-block-interactivo"><span>CHA</span><input type="number" id="p2-cha" value="10" oninput="calcularTodo(2)"><br><strong id="p2-cha-mod">+0</strong></div>
+        </div>
+        <div class="columna-principal">
+            <div class="cabecera-info">
+                <input type="text" id="p2-nombre" class="input-nombre" value="Héroe 2">
+                <input type="text" id="p2-clase" class="input-clase" placeholder="Clase / Oficio">
+                <div style="text-align:right"><label style="font-size:0.6rem">LVL</label><br><input type="number" id="p2-nivel" value="1" oninput="calcularTodo(2)" style="width:30px; background:transparent; border:none; font-weight:bold"></div>
+            </div>
+            <div class="xp-container" style="font-size:0.7rem; font-weight:bold">
+                XP: <input type="number" id="p2-xp" value="0" oninput="actualizarXP(2)" style="width:50px; background:transparent; border:none; font-weight:bold"> / 1000
+                <div class="xp-bar-bg"><div id="p2-xp-fill" class="xp-bar-fill"></div></div>
+            </div>
+            <div class="fila-combate">
+                <div><label style="font-size:0.6rem; display:block; text-align:center">AC</label><div class="controles-box"><button onclick="cambiarVal('p2-ac',-1,2)">-</button><input type="number" id="p2-ac" value="10" style="width:25px; background:transparent; border:none; color:white; text-align:center"><button onclick="cambiarVal('p2-ac',1,2)">+</button></div></div>
+                <div style="text-align:center"><label style="font-size:0.6rem">INIT</label><br><strong id="p2-init" style="font-size:1.5rem">+0</strong></div>
+                <div><label style="font-size:0.6rem; display:block; text-align:center">HP</label><div class="controles-box"><button onclick="cambiarHP(2,-1)">-</button><span id="p2-hp-cur">10</span> / <span id="p2-hp-max">10</span><button onclick="cambiarHP(2,1)">+</button></div></div>
+            </div>
+            <div class="tabs-header">
+                <input type="radio" name="p2-tabs" id="p2-t1" checked><label for="p2-t1" onclick="showTab(2,1)">Ataques</label>
+                <input type="radio" name="p2-tabs" id="p2-t2"><label for="p2-t2" onclick="showTab(2,2)">Hechizos</label>
+                <input type="radio" name="p2-tabs" id="p2-t3"><label for="p2-t3" onclick="showTab(2,3)">Inventario</label>
+            </div>
+            <div id="p2-c1" class="tab-content" style="display:block"><textarea id="p2-ataq" class="textarea-hisui" placeholder="Escribe ataques..."></textarea></div>
+            <div id="p2-c2" class="tab-content">
+                <div class="selector-niveles" id="p2-spell-sel">
+                    <button onclick="filtrarHechizos(2,'all')" class="active">All</button>
+                    <button onclick="filtrarHechizos(2,'1')">1</button><button onclick="filtrarHechizos(2,'2')">2</button><button onclick="filtrarHechizos(2,'3')">3</button><button onclick="filtrarHechizos(2,'4')">4</button><button onclick="filtrarHechizos(2,'5')">5</button><button onclick="filtrarHechizos(2,'6')">6</button><button onclick="filtrarHechizos(2,'7')">7</button><button onclick="filtrarHechizos(2,'8')">8</button><button onclick="filtrarHechizos(2,'9')">9</button>
+                </div>
+                <div id="p2-lista-spells">
+                    <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Hechizo P2</strong> <span>Nivel 1</span></div><div class="mov-desc">Descripción aquí...</div></div>
+                </div>
+            </div>
+            <div id="p2-c3" class="tab-content"><textarea id="p2-inv" class="textarea-hisui" placeholder="Objetos..."></textarea></div>
+        </div>
+    </div>
+</div>
+
+<div id="wrapper-p3" class="ficha-wrapper">
+    <div class="ficha-horizontal-arceus">
+        <div class="columna-stats">
+            <div class="retrato-circulo"><img src="img/Kopi.jpg" id="p3-img"></div>
+            <div class="stat-block-interactivo"><span>STR</span><input type="number" id="p3-str" value="10" oninput="calcularTodo(3)"><br><strong id="p3-str-mod">+0</strong></div>
+            <div class="stat-block-interactivo"><span>DEX</span><input type="number" id="p3-dex" value="10" oninput="calcularTodo(3)"><br><strong id="p3-dex-mod">+0</strong></div>
+            <div class="stat-block-interactivo"><span>CON</span><input type="number" id="p3-con" value="10" oninput="calcularTodo(3)"><br><strong id="p3-con-mod">+0</strong></div>
+            <div class="stat-block-interactivo"><span>INT</span><input type="number" id="p3-int" value="10" oninput="calcularTodo(3)"><br><strong id="p3-int-mod">+0</strong></div>
+            <div class="stat-block-interactivo"><span>WIS</span><input type="number" id="p3-wis" value="10" oninput="calcularTodo(3)"><br><strong id="p3-wis-mod">+0</strong></div>
+            <div class="stat-block-interactivo"><span>CHA</span><input type="number" id="p3-cha" value="10" oninput="calcularTodo(3)"><br><strong id="p3-cha-mod">+0</strong></div>
+        </div>
+        <div class="columna-principal">
+            <div class="cabecera-info">
+                <input type="text" id="p3-nombre" class="input-nombre" value="Héroe 3">
+                <input type="text" id="p3-clase" class="input-clase" placeholder="Clase / Oficio">
+                <div style="text-align:right"><label style="font-size:0.6rem">LVL</label><br><input type="number" id="p3-nivel" value="1" oninput="calcularTodo(3)" style="width:30px; background:transparent; border:none; font-weight:bold"></div>
+            </div>
+            <div class="xp-container" style="font-size:0.7rem; font-weight:bold">
+                XP: <input type="number" id="p3-xp" value="0" oninput="actualizarXP(3)" style="width:50px; background:transparent; border:none; font-weight:bold"> / 1000
+                <div class="xp-bar-bg"><div id="p3-xp-fill" class="xp-bar-fill"></div></div>
+            </div>
+            <div class="fila-combate">
+                <div><label style="font-size:0.6rem; display:block; text-align:center">AC</label><div class="controles-box"><button onclick="cambiarVal('p3-ac',-1,3)">-</button><input type="number" id="p3-ac" value="10" style="width:25px; background:transparent; border:none; color:white; text-align:center"><button onclick="cambiarVal('p3-ac',1,3)">+</button></div></div>
+                <div style="text-align:center"><label style="font-size:0.6rem">INIT</label><br><strong id="p3-init" style="font-size:1.5rem">+0</strong></div>
+                <div><label style="font-size:0.6rem; display:block; text-align:center">HP</label><div class="controles-box"><button onclick="cambiarHP(3,-1)">-</button><span id="p3-hp-cur">10</span> / <span id="p3-hp-max">10</span><button onclick="cambiarHP(3,1)">+</button></div></div>
+            </div>
+            <div class="tabs-header">
+                <input type="radio" name="p3-tabs" id="p3-t1" checked><label for="p3-t1" onclick="showTab(3,1)">Ataques</label>
+                <input type="radio" name="p3-tabs" id="p3-t2"><label for="p3-t2" onclick="showTab(3,2)">Hechizos</label>
+                <input type="radio" name="p3-tabs" id="p3-t3"><label for="p3-t3" onclick="showTab(3,3)">Inventario</label>
+            </div>
+            <div id="p3-c1" class="tab-content" style="display:block"><textarea id="p3-ataq" class="textarea-hisui" placeholder="Escribe ataques..."></textarea></div>
+            <div id="p3-c2" class="tab-content">
+                <div class="selector-niveles" id="p3-spell-sel">
+                    <button onclick="filtrarHechizos(3,'all')" class="active">All</button>
+                    <button onclick="filtrarHechizos(3,'1')">1</button><button onclick="filtrarHechizos(3,'2')">2</button><button onclick="filtrarHechizos(3,'3')">3</button><button onclick="filtrarHechizos(3,'4')">4</button><button onclick="filtrarHechizos(3,'5')">5</button><button onclick="filtrarHechizos(3,'6')">6</button><button onclick="filtrarHechizos(3,'7')">7</button><button onclick="filtrarHechizos(3,'8')">8</button><button onclick="filtrarHechizos(3,'9')">9</button>
+                </div>
+                <div id="p3-lista-spells">
+                    <div class="movimiento-item" data-nivel="1" onclick="toggleDesc(this)"><div style="display:flex; justify-content:space-between"><strong>Hechizo P3</strong> <span>Nivel 1</span></div><div class="mov-desc">Descripción aquí...</div></div>
+                </div>
+            </div>
+            <div id="p3-c3" class="tab-content"><textarea id="p3-inv" class="textarea-hisui" placeholder="Objetos..."></textarea></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let hpData = { p1: 10, p2: 10, p3: 10 };
+
+    function cambiarJugador(num) {
+        document.querySelectorAll('.ficha-wrapper').forEach(w => w.classList.remove('active'));
+        document.querySelectorAll('.btn-player').forEach(b => b.classList.remove('active'));
+        document.getElementById('wrapper-p' + num).classList.add('active');
+        document.getElementById('btn' + num).classList.add('active');
+    }
+
+    function showTab(p, tab) {
+        document.getElementById(`p${p}-c1`).style.display = tab === 1 ? 'block' : 'none';
+        document.getElementById(`p${p}-c2`).style.display = tab === 2 ? 'block' : 'none';
+        document.getElementById(`p${p}-c3`).style.display = tab === 3 ? 'block' : 'none';
+    }
+
+    function calcularTodo(p) {
+        const stats = ['str','dex','con','int','wis','cha'];
+        let mods = {};
+        stats.forEach(s => {
+            const el = document.getElementById(`p${p}-${s}`);
+            if(el) {
+                const val = parseInt(el.value) || 10;
+                const mod = Math.floor((val - 10) / 2);
+                mods[s] = mod;
+                document.getElementById(`p${p}-${s}-mod`).innerText = (mod >= 0 ? '+' : '') + mod;
+            }
+        });
+        document.getElementById(`p${p}-init`).innerText = (mods.dex >= 0 ? '+' : '') + (mods.dex || 0);
+        const lvl = parseInt(document.getElementById(`p${p}-nivel`).value) || 1;
+        const hpMax = (8 + (mods.con || 0)) + (lvl - 1) * (5 + (mods.con || 0));
+        document.getElementById(`p${p}-hp-max`).innerText = hpMax;
+        saveData();
+    }
+
+    function actualizarXP(p) {
+        const val = document.getElementById(`p${p}-xp`).value;
+        document.getElementById(`p${p}-xp-fill`).style.width = Math.min((val / 1000) * 100, 100) + '%';
+        saveData();
+    }
+
+    function cambiarVal(id, delta, p) {
+        const el = document.getElementById(id);
+        el.value = parseInt(el.value) + delta;
+        calcularTodo(p);
+    }
+
+    function cambiarHP(p, delta) {
+        hpData['p'+p] = (hpData['p'+p] || 10) + delta;
+        document.getElementById(`p${p}-hp-cur`).innerText = hpData['p'+p];
+        saveData();
+    }
+
+    function filtrarHechizos(p, nivel) {
+        const items = document.querySelectorAll(`#p${p}-lista-spells .movimiento-item`);
+        const btns = document.querySelectorAll(`#p${p}-spell-sel button`);
+        btns.forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        items.forEach(item => {
+            item.style.display = (nivel === 'all' || item.getAttribute('data-nivel') === nivel) ? 'block' : 'none';
+        });
+    }
+
+    function toggleDesc(el) { el.classList.toggle('open'); }
+
+    function saveData() {
+        const data = { hpData: hpData };
+        document.querySelectorAll('input, textarea').forEach(el => {
+            if (el.id) data[el.id] = el.value;
+        });
+        localStorage.setItem('hisui_final_perfect_save', JSON.stringify(data));
+    }
+
+    function loadData() {
+        const raw = localStorage.getItem('hisui_final_perfect_save');
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        hpData = data.hpData || { p1: 10, p2: 10, p3: 10 };
+        Object.keys(data).forEach(id => {
+            const el = document.getElementById(id);
+            if (el && id !== 'hpData') el.value = data[id];
+        });
+        [1,2,3].forEach(p => {
+            const cur = document.getElementById(`p${p}-hp-cur`);
+            if(cur) cur.innerText = hpData['p'+p] || 10;
+            calcularTodo(p);
+            actualizarXP(p);
+        });
+    }
+
+    function exportarPartida() {
+        const datos = localStorage.getItem('hisui_final_perfect_save');
+        if (!datos) return alert("No hay datos.");
+        const blob = new Blob([datos], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'ficha_personajes.json';
+        link.click();
+    }
+
+    function importarPartida(input) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            localStorage.setItem('hisui_final_perfect_save', e.target.result);
+            location.reload();
+        };
+        reader.readAsText(input.files[0]);
+    }
+
+    document.addEventListener('input', saveData);
+    window.onload = loadData;
+</script>
+
+</body>
+</html>
