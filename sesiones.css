@@ -1,31 +1,32 @@
 /* ============================================================
-   DISEÑO DE CUADERNO PARA SESIONES
+   DISEÑO DE CUADERNO PARA SESIONES (REVISADO Y CENTRADO)
    ============================================================ */
 html, body {
     margin: 0;
     padding: 0;
-    min-height: 100vh;
-    /* Recuperamos el fondo azul oscuro con puntos dorados de la ficha */
-    background-color: #2c3e50 !important;
-    background-image: radial-gradient(#d4af37 1px, transparent 1px) !important;
-    background-size: 40px 40px !cite: 5;
+    min-height: 100vh; /* Ocupa el 100% de la altura de la pantalla */
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; /* Centrado vertical completo */
+    /* Recuperamos el fondo azul oscuro con puntos dorados de la ficha */
+    background-color: #2c3e50 !cite: 5;
+    background-image: radial-gradient(#d4af37 1px, transparent 1px) !cite: 5;
+    background-size: 40px 40px !cite: 5;
 }
 
 .contenedor-cuaderno {
     background-color: #f4e4bc; /* Color pergamino/papel */
     background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
     padding: 50px;
-    width: 80%;
+    width: 80%; /* Ocupa el 80% del ancho */
     max-width: 800px;
     min-height: 60vh;
     border: 2px solid #3c2a1e;
     /* Efecto de bordes cortados como tu ficha */
     clip-path: polygon(0 2%, 2% 0, 98% 0, 100% 2%, 100% 98%, 98% 100%, 2% 100%, 0 98%);
-    box-shadow: 15px 15px 0px rgba(0,0,0,0.5) !cite: 5;
+    box-shadow: 15px 15px 0px rgba(0,0,0,0.5);
     text-align: center;
+    overflow: hidden; /* Evita que las animaciones se salgan */
 }
 
 h1 {
@@ -37,22 +38,63 @@ h1 {
     margin-bottom: 40px;
 }
 
+/* ============================================================
+   BOTÓN CON ANIMACIÓN Y BORDE ROJO
+   ============================================================ */
 .btn-sesion {
     display: inline-block;
-    background-color: #8b0000;
-    color: #f4e1c1 !important;
+    background-color: transparent; /* Fondo transparente */
+    color: #3c2a1e !cite: 5; /* Texto oscuro */
     padding: 15px 30px;
-    margin: 10px;
+    margin: 20px auto;
     text-decoration: none;
     font-family: 'Uncial Antiqua', serif;
-    font-size: 1.2rem;
-    border: 2px solid #3c2a1e;
-    border-radius: 5px;
+    font-size: 1.5rem;
+    position: relative; /* Necesario para la animación del borde */
+    overflow: hidden;
+    z-index: 1; /* Texto por encima del efecto */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* El "falso borde" que se anima */
+.btn-sesion::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 3px solid #8b0000; /* Borde rojo oscuro */
+    border-radius: 8px; /* Borde redondeado */
+    z-index: -1;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Efecto al pasar el ratón: el borde se llena y brilla */
+.btn-sesion:hover::before {
+    background-color: #8b0000; /* Se llena de rojo */
+    box-shadow: 0px 0px 20px #8b0000; /* Brillo rojo */
+}
+
+/* Cambio de color de texto al hover */
+.btn-sesion:hover {
+    color: #f4e1c1; /* Texto crema sobre rojo */
+}
+
+/* Botón de "Volver al Inicio" simple */
+.btn-volver {
+    display: inline-block;
+    margin-top: 50px;
+    color: #3c2a1e;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 0.9rem;
+    padding: 10px 20px;
     transition: 0.3s;
 }
 
-.btn-sesion:hover {
-    background-color: #3c2a1e;
-    color: #f4e4bc !important;
-    transform: scale(1.05);
+.btn-volver:hover {
+    color: #8b0000;
+    text-decoration: underline;
 }
