@@ -111,3 +111,27 @@ body {
 #tab-inventario:checked ~ .content-inventario {
     display: block;
 }
+/* ============================================================
+   ESTILO DEL FOOTER EN PERSONAJES
+   ============================================================ */
+.footer-personajes {
+    text-align: center;
+    padding: 40px 0; /* Espacio para que no pegue con la ficha */
+    width: 100%;
+}
+
+.footer-personajes a {
+    font-family: 'Cinzel', serif;
+    color: #f4e4bc; /* Color crema para que resalte sobre el fondo azul */
+    text-decoration: none;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid transparent;
+}
+
+.footer-personajes a:hover {
+    color: #d4af37; /* Dorado al pasar el ratón */
+    border-bottom: 1px solid #d4af37;
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+}
